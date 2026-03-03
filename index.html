@@ -150,6 +150,64 @@
         <p>&copy; 2026 MyCompany. All Rights Reserved.</p>
     </div>
 </footer>
+    <!-- ================= SUBSCRIPTION MODAL ================= -->
+<div id="subscriptionPopup" class="modal-overlay">
+    <div class="modal-box">
+        <h3>Subscribe Now</h3>
+        <p>Get updates and special offers.</p>
+
+        <input type="email" id="subscriberEmail" placeholder="Enter your email">
+        <small id="emailError" class="error-text"></small>
+
+        <button id="subscribeBtn" class="btn-primary modal-btn">Subscribe</button>
+        <a href="#" id="closePopup" class="close-link">Close</a>
+    </div>
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+window.addEventListener("load", function () {
+
+    // Show popup after 1.5 seconds
+    setTimeout(function () {
+        document.getElementById("subscriptionPopup").classList.add("active");
+    }, 1500);
+
+    const subscribeBtn = document.getElementById("subscribeBtn");
+    const closeBtn = document.getElementById("closePopup");
+    const popup = document.getElementById("subscriptionPopup");
+    const emailInput = document.getElementById("subscriberEmail");
+    const errorText = document.getElementById("emailError");
+
+    // Email validation regex
+    function isValidEmail(email) {
+        return /^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email);
+    }
+
+    subscribeBtn.addEventListener("click", function () {
+        const emailValue = emailInput.value.trim();
+
+        if (!isValidEmail(emailValue)) {
+            errorText.textContent = "Please enter a valid email address.";
+            return;
+        }
+
+        // Save email to localStorage
+        localStorage.setItem("subscriberEmail", emailValue);
+
+        alert("Thank you for subscribing!");
+
+        popup.classList.remove("active");
+        emailInput.value = "";
+        errorText.textContent = "";
+    });
+
+    closeBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        popup.classList.remove("active");
+    });
+});
+</script>
 
 </body>
 </html>
